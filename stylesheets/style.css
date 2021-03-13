@@ -284,7 +284,7 @@ ion-icon {
 
 #spin:after {
   content: "";
-  animation: spin 3.0s linear infinite;
+  animation: spin 5.0s linear infinite;
 }
 
 @keyframes spin {
@@ -295,7 +295,7 @@ ion-icon {
     content: "Student";
   }
   20% {
-    content: "Foodie";
+    content: "Pursuing Masters";
   }
   30% {
     content: "Pharmacist";
@@ -319,7 +319,7 @@ ion-icon {
     content: "Maintainer";
   }
   100% {
-    content: "21";
+    content: "Pharmacist";
   }
 }
 
