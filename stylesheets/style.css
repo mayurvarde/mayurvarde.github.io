@@ -59,7 +59,7 @@ body {
   background-image:
 	  linear-gradient(
 		  to right,
-		  #d4e1f4, #f3d3d6
+		  #56ccf2, #2f80ed
 		);
   text-align: center;
   font-family: 'Google Sans', sans-serif;
@@ -289,19 +289,19 @@ ion-icon {
 
 @keyframes spin {
   0% {
-    content: "Pharmacist";
+    content: "Scientist";
   }
   10% {
-    content: "Young Pharmacist";
+    content: "R&D executive";
   }
   20% {
-    content: "Dynamic Pharmacist";
+    content: "Technique transferer";
   }
   30% {
-    content: "Pursuing Masters (Pharmaceutics)";
+    content: "Technique transferer";
   }
   40% {
-    content: "Pursuing Masters (Pharmaceutics)";
+    content: "Developer";
   }
   50% {
     content: "Work addict";
@@ -319,7 +319,7 @@ ion-icon {
     content: "Maintainer";
   }
   100% {
-    content: "Pharmacist";
+    content: "Scientist";
   }
 }
 
