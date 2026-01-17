@@ -401,6 +401,17 @@ ion-icon {
   margin-bottom: 5px;
 }
 
+#footer .fa-heart {
+  color: #e25555;
+  margin: 0 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
 :root{
   --bg-gradient: linear-gradient(-45deg,#7f7fd5,#86a8e7,#91eae4,#7f7fd5);
   --text-color:#0f172a;
