@@ -479,14 +479,12 @@ body {
 }
 
 #theme-toggle:hover {
-  transform: scale(1.1);
-  pointer-events: none;
-  box-shadow: 0 0 10px rgba(56,189,248,0.7);
+  transform: rotate(20deg);
+  transition: transform 0.3s ease;
 }
 
 #theme-toggle:hover i {
-  transform: rotate(20deg);
-  transition: transform 0.3s ease;
+  pointer-events: none;
 }
 
 /* Extra clarity in dark mode */
