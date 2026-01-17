@@ -15,6 +15,7 @@
 	</head>
 
 	<body>
+		<button id="theme-toggle" aria-label="Toggle theme">🌙</button>
 		<div class="outer">
 			<div class="inner">
 					<section class = "gap loadanimation">
@@ -29,7 +30,7 @@
 					</section>
 
 					<ul class="gap social">
-                                                <li class="icon-resume tile"><a href= "resources/resume.pdf"><ion-icon name="document"></ion-icon><br><br>Resume</a></li>
+                        <li class="icon-resume tile"><a href= "resources/resume.pdf"><ion-icon name="document"></ion-icon><br><br>Resume</a></li>
 						<li class="icon-instagram tile"><a href= "https://instagram.com/may.u.r"><ion-icon name="logo-instagram"></ion-icon><br><br>Instagram</a></li>
 						<li class="icon-twitter tile"><a href="https://twitter.com/myurvrde"><ion-icon name="logo-twitter"></ion-icon><br><br>Twitter</a></li>
 						<li class="icon-github tile"><a href="https://github.com/marshmello61"><ion-icon name="logo-github"></ion-icon><br><br>GitHub</a></li>
@@ -43,9 +44,40 @@
 			<!-- Footer -->
 			<footer id="footer">
 				<ul class="copyright">
-					<li>&copy; 2025 Mayur Varde</li>
+					<li>&copy; 2026 Mayur Varde</li>
 				</ul>
 			</footer>
 		</div>
+
+  <script>
+  const toggleBtn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+
+  // Initial theme
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (systemPrefersDark) {
+    setTheme('dark');
+  } else {
+    setTheme('light');
+  }
+
+  // Toggle on click
+  toggleBtn.addEventListener('click', () => {
+    const newTheme =
+      root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+  </script>
 	</body>
 </html>
