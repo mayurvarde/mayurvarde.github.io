@@ -19,8 +19,10 @@
 		<div class="outer">
 			<div class="inner">
 					<section class = "gap loadanimation">
+						<div class="avatar-container">
 						<img src="resources/avatar.png" class="avatar">
-						<h1 class="padDown">My name's Mayur Varde</h1>
+						</div>
+						<h1 class="padDown">Mayur Varde</h1>
 						<p>I am a <span id="spin"></span></p>
 						<h2></h2>
 						<h3>
@@ -78,6 +80,31 @@
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   });
+
+  // Scroll animations
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {threshold: 0.1, rootMargin: "0px 0px -50px 0px"};
+    const appearOnScroll = new IntersectionObserver(function(entries, observer){
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {appearOnScroll.observe(fader);});
+
+    // Animate skill bars
+    const skillBars = document.querySelectorAll('.progress-bar div');
+    window.addEventListener('scroll', ()=>{
+      skillBars.forEach(bar=>{
+        const barTop = bar.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        if(barTop < windowHeight-50){
+          bar.style.width = bar.getAttribute('data-width');
+        }
+      });
+    });
   </script>
 	</body>
 </html>
