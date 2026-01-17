@@ -66,12 +66,17 @@
 			<!-- Footer -->
 			<footer id="footer">
 				<ul class="copyright">
-					<li>&copy; 2026 Mayur Varde</li>
+					<li> Made with <i class="fas fa-heart"></i> by Mayur</li>
+					<li>&copy; <span id="year"></span> Mayur Varde</li>
 				</ul>
 			</footer>
 		</div>
 
   <script>
+  // Fetch current year
+  document.getElementById("year").textContent =
+  new Date().getFullYear();
+
   const toggleBtn = document.getElementById('theme-toggle');
   const root = document.documentElement;
 
@@ -83,8 +88,8 @@
     // Use Font Awesome icons
 	  toggleBtn.innerHTML =
 	    theme === 'dark'
-	      ? '<i class="fas fa-sun"></i>'   // Dark → Light icon
-	      : '<i class="fas fa-moon"></i>'; // Light → Dark icon
+	      ? '<i class="fas fa-circle-half-stroke"></i>'   // dark active
+	      : '<i class="fas fa-circle"></i>'; // light active
    }
 
   // Initial theme
@@ -138,7 +143,7 @@ const muteBtn = document.getElementById('music-mute');
 window.addEventListener('load', () => {
   music.play().catch(() => {
     // if blocked, show play icon
-    musicBtn.innerHTML = '<i class="fas fa-play"></i>';
+    musicBtn.innerHTML = '<i class="fas fa-minus"></i>';
   });
 });
 
@@ -146,10 +151,10 @@ window.addEventListener('load', () => {
 musicBtn.addEventListener('click', () => {
   if (music.paused) {
     music.play();
-    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';  // pause icon
+    musicBtn.innerHTML = '<i class="fas fa-wave-square"></i>';  // pause icon
   } else {
     music.pause();
-    musicBtn.innerHTML = '<i class="fas fa-play"></i>';   // play icon
+    musicBtn.innerHTML = '<i class="fas fa-minus"></i>';   // play icon
   }
 });
 
@@ -157,8 +162,10 @@ musicBtn.addEventListener('click', () => {
 muteBtn.addEventListener('click', () => {
   music.muted = !music.muted;
   muteBtn.innerHTML = music.muted
-	? '<i class="fas fa-volume-mute"></i>'  // muted
-    : '<i class="fas fa-volume-high"></i>'; // unmuted
+	? '<i class="fas fa-signal-slash"></i>'  // muted
+    : '<i class="fas fa-signal"></i>'; // unmuted
+
+  musicBtn.style.opacity = music.muted ? "0.4" : "1";
 });
   </script>
 	</body>
