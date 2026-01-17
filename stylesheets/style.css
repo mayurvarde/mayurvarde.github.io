@@ -1,3 +1,23 @@
+:root {
+  /* Light Mode - Natural & Bright */
+  --bg-gradient: linear-gradient(-45deg, #f0f4f0, #c8d3c8, #b5c2b5, #f0f4f0);
+  --text-color: #2d3436;     /* Deep forest grey */
+  --accent-color: #6a8e7f;   /* Sage green */
+  --button-bg: #8c7355;      /* Earthy tan */
+  --button-text: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] {
+  /* Dark Mode - Deep Forest & Stone */
+  --bg-gradient: linear-gradient(-45deg, #0a0f0b, #1b261d, #2d3d2f, #131a14);
+  --text-color: #e2e8e2;     /* Off-white stone */
+  --accent-color: #9dbfad;   /* Muted mint green */
+  --button-bg: #b5a48b;      /* Sandstone beige */
+  --button-text: #1b261d;
+  --card-bg: rgba(0, 0, 0, 0.4);
+}
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u,
@@ -55,7 +75,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-body {
+/* body {
   background-image:
 	  linear-gradient(
 		  to right,
@@ -63,16 +83,58 @@ body {
 		);
   text-align: center;
   font-family: 'Google Sans', sans-serif;
+} */
+
+body{
+  font-family:'Inter',sans-serif;
+  margin:0;
+  color:var(--text-color);
+  background-image:var(--bg-gradient);
+  background-size:400% 400%;
+  animation: gradientBG 15s ease infinite;
+  text-align:center;
+  transition: background 0.4s, color 0.4s;
+  min-height: 100vh;
+}
+
+/* Improves text rendering on modern screens */
+/*  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+
+/* Gradient animation */
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Fade-in sections */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 1s ease, transform 1s ease;}
+.fade-in.appear{opacity:1;transform:translateY(0);}
+
+/* Responsive */
+@media(max-width:600px){
+  #hero h1{font-size:2rem;}
+  #hero .tagline{font-size:1rem;}
+  .social{top:60px;right:8px;}
 }
 
 h1 {
   font-size: 2.25em;
   padding: 0 1em;
   font-style: italic;
+  color: var(--accent-color); /* Shirt color for the main title */
 }
 
 a {
   text-decoration: none;
+  color: var(--accent-color); /* Shirt color for links */
+  transition: opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+  color: #d4a373; /* A lighter highlight for hover */
 }
 
 img {
@@ -99,11 +161,29 @@ ion-icon {
 }
 
 .inner {
-  display: inline-block;
-  padding: 40px;
+  background: var(--card-bg);
+  backdrop-filter: blur(11px); /* Creates the frosted glass effect */
+  -webkit-backdrop-filter: blur(11px); /* For Safari compatibility */
+  
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle "edge" to the glass */
+  border-radius: 20px; /* Rounded corners for a modern look */
+  padding: 40px; /* Spacing inside the container */
+  
+  max-width: 600px; /* Keeps the container from being too wide */
+  margin: 10px auto; /* Centers the card horizontally */
+  
+  /* Adds a smooth shadow for depth */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
 }
 
-.avatar {
+@media (max-width: 600px) {
+  .inner {
+    padding: 20px; /* Reduces padding so content isn't cramped on phones */
+    width: 90%;    /* Ensures the card doesn't touch the edges of the screen */
+  }
+}
+
+/* .avatar {
   -moz-box-shadow: 0 0 0px 3px #fff, 0 0 0 4px #ccc, 0 4px 6px #333;
   -webkit-box-shadow: 0 0 0px 3px #fff, 0 0 0 4px #ccc, 0 4px 6px #333;
   box-shadow: 0 0 0px 3px #fff, 0 0 0 4px #ccc, 0 4px 6px #333;
@@ -112,7 +192,67 @@ ion-icon {
   border-radius: 100px;
   width: 200px;
   height: 200px;
+} */
+
+/* Avatar Container */
+.avatar-container {
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--accent-color);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
+
+/* Avatar Image */
+.avatar-container .avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Hover effect */
+.avatar-container:hover {
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
+}
+
+/* Dark mode glow */
+[data-theme="dark"] .avatar-container:hover {
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.9);
+}
+
+/* Responsive avatar */
+@media (max-width: 768px) {
+  .avatar-container {
+    width: 180px;        /* Prominent size for mobile */
+    height: 180px;
+    margin: 0 auto 20px auto; /* "0 auto" centers it horizontally */
+    border-radius: 50%;
+    overflow: hidden;    /* Keeps the image inside the circle */
+    display: block;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Adds depth */
+    transition: transform 0.3s ease;
+  }
+
+  /* Crucial: This makes the image fill the 260px box */
+  .avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* Prevents the photo from stretching */
+  }
+
+  /* On mobile, :hover can be sticky; :active works better for tap feedback */
+  .avatar-container:active {
+    transform: scale(0.98);
+  }
+}
+
+
 
 .loadanimation {
   animation: 1s ease-in-out both fadeInRight;
@@ -155,6 +295,10 @@ ion-icon {
 
 .tile:nth-child(6) {
   animation-delay: 2.1s;
+}
+
+.tile:nth-child(7) {
+  animation-delay: 2.25s;
 }
 
 @keyframes fade-in {
@@ -289,16 +433,16 @@ ion-icon {
 
 @keyframes spin {
   0% {
-    content: "Scientist";
+    content: "Formulation Scientist";
   }
   10% {
     content: "R&D executive";
   }
   20% {
-    content: "Technique transferer";
+    content: "Experimenter";
   }
   30% {
-    content: "Technique transferer";
+    content: "F&D professional";
   }
   40% {
     content: "Developer";
@@ -313,13 +457,13 @@ ion-icon {
     content: "Leader";
   }
   80% {
-    content: "Boy";
+    content: "Man of science";
   }
   90% {
-    content: "Maintainer";
+    content: "Scientist";
   }
   100% {
-    content: "Scientist";
+    content: "Formulation Scientist";
   }
 }
 
@@ -331,4 +475,153 @@ ion-icon {
   bottom: 0px;
   width: 100%;
   margin-bottom: 5px;
+  padding: 6px 0;
+}
+
+#footer .fa-heart {
+  color: #e25555;
+  margin: 0 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+#footer .copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+#footer .copyright li {
+  line-height: 1.4;
+}
+
+/* Social icons – smooth transitions for color and movement */
+.social a,
+.social i,
+.social svg {
+  transition: color 0.3s ease, fill 0.3s ease, transform 0.3s ease;
+}
+
+/*Dark */
+[data-theme="dark"] .social a,
+[data-theme="dark"] .social i {
+  color: #e2e8e2 !important;
+}
+
+[data-theme="dark"] .social svg {
+  fill: ##e2e8e2 !important; 
+}
+
+/* Hover highlight – using the warm brown from your shirt */
+[data-theme="dark"] .social a:hover,
+[data-theme="light"] .social a:hover {
+  color: var(--accent-color) !important;
+  text-shadow: 0 0 12px rgba(157, 191, 173, 0.4);
+  transform: scale(1.15);    /* Keep the nice pop effect */
+}
+
+/* Optional: Ensure icons are dark charcoal in light mode for readability */
+[data-theme="light"] .social a,
+[data-theme="light"] .social i {
+  color: #1a1a1a !important;
+}
+
+/* Toggle button */
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1px solid rgba(106, 142, 127, 0.3);
+
+  background: var(--button-bg);
+  color: var(--button-text);
+
+  font-size: 20px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: 0.3s ease;
+}
+
+#theme-toggle:hover {
+  transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
+#theme-toggle:hover i {
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Extra clarity in dark mode - using Stone off-white */
+[data-theme="dark"] #theme-toggle {
+  border-color: rgba(226, 232, 226, 0.4); /* Stone-white border */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Deeper shadow for better depth */
+}
+
+#music-controls {
+  position: fixed;        /* fixed to viewport */
+  bottom: 16px;           /* distance from bottom */
+  right: 16px;            /* distance from right */
+  display: flex;          /* buttons side by side */
+  gap: 10px;              /* space between buttons */
+  z-index: 9999;          /* above other content */
+}
+
+#music-controls button {
+  width: 45px;    /* button size */
+  height: 45px;
+  border-radius: 50%;    /* circular */
+  border: 1px solid rgba(106, 142, 127, 0.3);
+  background: var(--button-bg);   /* match theme toggle */
+  color: var(--button-text);
+  font-size: 20px;    /* icon size */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#music-controls button:hover {
+  transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
+/* Icon inside button */
+#music-controls button i {
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Specific Dark Mode adjustment for clarity */
+[data-theme="dark"] #music-controls button {
+  border-color: rgba(226, 232, 226, 0.4); /* Stone off-white border */
+}
+
+@media (max-width: 600px) {
+  #music-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
 }
