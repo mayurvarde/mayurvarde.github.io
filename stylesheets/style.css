@@ -349,6 +349,30 @@ ion-icon {
   --button-text: #e5e7eb;
 }
 
+/* Social icons – visible on dark backgrounds */
+.social a,
+.social i,
+.social svg {
+  transition: color 0.3s ease, fill 0.3s ease;
+}
+
+/* Force light icons in dark mode */
+[data-theme="dark"] .social a,
+[data-theme="dark"] .social i {
+  color: #e5e7eb !important; /* bright/light color */
+}
+
+[data-theme="dark"] .social svg {
+  fill: #e5e7eb !important; /* for SVG-based icons */
+}
+
+/* Optional: Hover highlight */
+[data-theme="dark"] .social a:hover,
+[data-theme="light"] .social a:hover {
+  color: #38bdf8 !important;
+  transform: scale(1.15);
+}
+
 body {
   background-image: var(--bg-gradient);
   color: var(--text-color);
@@ -361,15 +385,24 @@ body {
 
 /* Toggle button */
 #theme-toggle {
-  margin: 16px;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+
   padding: 8px 16px;
   border-radius: 999px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
   background: var(--button-bg);
   color: var(--button-text);
-  font-size: 14px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
+  transition: 0.3s ease;
+}
+
+[data-theme="dark"] #theme-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 #theme-toggle:hover {
