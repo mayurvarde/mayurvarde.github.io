@@ -15,6 +15,17 @@
 	</head>
 
 	<body>
+		<!-- Background Music -->
+		<audio id="bg-music" loop autoplay>
+		  <source src="music.mp3" type="audio/mpeg">
+		  Your browser does not support the audio element.
+		</audio>
+
+		<div id="music-controls">
+		  <button id="music-toggle" aria-label="Play/Pause music">🔊</button>
+		  <button id="music-mute" aria-label="Mute/Unmute music">🔇</button>
+		</div>
+
 		<button id="theme-toggle" aria-label="Toggle theme">🌙</button>
 		<div class="outer">
 			<div class="inner">
@@ -105,6 +116,35 @@
         }
       });
     });
+
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-toggle');
+const muteBtn = document.getElementById('music-mute');
+
+// Try to autoplay (some browsers block autoplay with sound)
+window.addEventListener('load', () => {
+  music.play().catch(() => {
+    // if blocked, show play icon
+    musicBtn.textContent = '▶️';
+  });
+});
+
+// Play / Pause toggle
+musicBtn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.textContent = '🔊';
+  } else {
+    music.pause();
+    musicBtn.textContent = '⏸️';
+  }
+});
+
+// Mute / Unmute toggle
+muteBtn.addEventListener('click', () => {
+  music.muted = !music.muted;
+  muteBtn.textContent = music.muted ? '🔇' : '🔊';
+});
   </script>
 	</body>
 </html>
