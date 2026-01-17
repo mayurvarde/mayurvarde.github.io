@@ -155,6 +155,19 @@ ion-icon {
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
+/* Make avatar bigger on mobile */
+@media (max-width: 768px) {
+  .avatar-container {
+    width: 260px;
+    height: 260px;
+    margin-bottom: 28px;
+  }
+
+  .avatar-container:hover {
+    transform: scale(1.05);
+  }
+}
+
 /* Avatar Image */
 .avatar-container .avatar {
   width: 100%;
@@ -399,6 +412,7 @@ ion-icon {
   bottom: 0px;
   width: 100%;
   margin-bottom: 5px;
+  padding: 6px 0;
 }
 
 #footer .fa-heart {
