@@ -1,21 +1,21 @@
 :root {
-  /* Light Mode - Warm & Clean */
-  --bg-gradient: linear-gradient(-45deg, #f5f5f5, #e5e5e5, #d4d4d4, #f5f5f5);
-  --text-color: #1a1a1a;
-  --button-bg: #a67c52;    /* Earthy brown */
-  --button-text: #fff;
-  --card-bg: rgba(255, 255, 255, 0.4);
-  --accent-color: #a67c52; /* The brown */
+  /* Light Mode - Natural & Bright */
+  --bg-gradient: linear-gradient(-45deg, #f0f4f0, #e2e8e2, #d8e0d8); /* Soft mossy white */
+  --text-color: #2d3436;     /* Deep forest grey */
+  --accent-color: #6a8e7f;   /* Sage green */
+  --button-bg: #8c7355;      /* Earthy tan */
+  --button-text: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.5);
 }
 
 [data-theme="dark"] {
-  /* Dark Mode - Earthy Charcoal & Terracotta */
-  --bg-gradient: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #262626, #0a0a0a);
-  --text-color: #f5f5f5;   /* Cream */
-  --button-bg: #a67c52;    /* Matching the shirt for consistency */
-  --button-text: #f5f5f5;
-  --card-bg: rgba(0, 0, 0, 0.3);
-  --accent-color: #a67c52; /* The brown */
+  /* Dark Mode - Deep Forest & Stone */
+  --bg-gradient: linear-gradient(-45deg, #1b261d, #243027, #1b261d); /* Deep dark green */
+  --text-color: #e2e8e2;     /* Off-white stone */
+  --accent-color: #9dbfad;   /* Muted mint green */
+  --button-bg: #b5a48b;      /* Sandstone beige */
+  --button-text: #1b261d;
+  --card-bg: rgba(0, 0, 0, 0.4);
 }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
@@ -489,20 +489,21 @@ ion-icon {
   transition: color 0.3s ease, fill 0.3s ease, transform 0.3s ease;
 }
 
-/* Force light cream icons in dark mode (Matches your pants) */
+/*Dark */
 [data-theme="dark"] .social a,
 [data-theme="dark"] .social i {
-  color: #f5f5f5 !important; /* Soft cream instead of cold grey */
+  color: #e2e8e2 !important;
 }
 
 [data-theme="dark"] .social svg {
-  fill: #f5f5f5 !important; 
+  fill: ##e2e8e2 !important; 
 }
 
 /* Hover highlight – using the warm brown from your shirt */
 [data-theme="dark"] .social a:hover,
 [data-theme="light"] .social a:hover {
-  color: var(--accent-color) !important; /* Earthy brown from your shirt */
+  color: var(--accent-color) !important;
+  text-shadow: 0 0 12px rgba(157, 191, 173, 0.4);
   transform: scale(1.15);    /* Keep the nice pop effect */
 }
 
@@ -527,7 +528,7 @@ ion-icon {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(106, 142, 127, 0.3);
 
   background: var(--button-bg);
   color: var(--button-text);
@@ -535,13 +536,13 @@ ion-icon {
   font-size: 20px;
   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
 }
 
 #theme-toggle:hover {
   transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
-  box-shadow: 0 0 15px rgba(56,189,248,0.6);
+  box-shadow: 0 0 15px rgba(106,142,127,0.5);
 }
 
 #theme-toggle:hover i {
@@ -551,9 +552,10 @@ ion-icon {
   justify-content: center;
 }
 
-/* Extra clarity in dark mode */
+/* Extra clarity in dark mode - using Stone off-white */
 [data-theme="dark"] #theme-toggle {
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(226, 232, 226, 0.4); /* Stone-white border */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Deeper shadow for better depth */
 }
 
 #music-controls {
@@ -569,7 +571,7 @@ ion-icon {
   width: 45px;    /* button size */
   height: 45px;
   border-radius: 50%;    /* circular */
-  border: 1px solid rgba(255,255,255,0.35);
+  border: 1px solid rgba(106, 142, 127, 0.3);
   background: var(--button-bg);   /* match theme toggle */
   color: var(--button-text);
   font-size: 20px;    /* icon size */
@@ -582,7 +584,7 @@ ion-icon {
 
 #music-controls button:hover {
   transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
-  box-shadow: 0 0 15px rgba(56,189,248,0.6);
+  box-shadow: 0 0 15px rgba(106,142,127,0.5);
 }
 
 /* Icon inside button */
@@ -591,6 +593,11 @@ ion-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Specific Dark Mode adjustment for clarity */
+[data-theme="dark"] #music-controls button {
+  border-color: rgba(226, 232, 226, 0.4); /* Stone off-white border */
 }
 
 @media (max-width: 600px) {
