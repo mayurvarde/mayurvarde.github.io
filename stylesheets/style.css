@@ -145,12 +145,12 @@ ion-icon {
 
 /* Avatar Container */
 .avatar-container {
-  width: 140px;
-  height: 140px;
+  width: 220px;
+  height: 220px;
   margin: 0 auto 20px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #38bdf8;
+  border: 4px solid #38bdf8;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
@@ -165,13 +165,13 @@ ion-icon {
 
 /* Hover effect */
 .avatar-container:hover {
-  transform: rotate(10deg) scale(1.05);
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
 }
 
 /* Dark mode glow */
 [data-theme="dark"] .avatar-container:hover {
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.9);
 }
 
 /* Responsive avatar */
