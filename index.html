@@ -88,8 +88,8 @@
     // Use Font Awesome icons
 	  toggleBtn.innerHTML =
 	    theme === 'dark'
-	      ? '<i class="fas fa-circle-half-stroke"></i>'   // dark active
-	      : '<i class="fas fa-circle"></i>'; // light active
+	      ? '<i class="fa-solid fa-circle-half-stroke"></i>'   // dark active
+	      : '<i class="fa-solid fa-circle"></i>'; // light active
    }
 
   // Initial theme
@@ -141,18 +141,18 @@ const muteBtn = document.getElementById('music-mute');
 
 // Initialize icons based on current state
 muteBtn.innerHTML = music.muted
-  ? '<i class="fas fa-signal-slash"></i>' // muted
-  : '<i class="fas fa-signal"></i>';       // unmuted
+  ? '<i class="fa-solid fa-lock"></i>' // muted
+  : '<i class="fa-solid fa-lock-open"></i>';       // unmuted
 
 musicBtn.innerHTML = music.paused
-  ? '<i class="fas fa-minus"></i>'         // paused
-  : '<i class="fas fa-wave-square"></i>';   // playing
+  ? '<i class="fa-solid fa-headphones-simple"></i>'         // paused
+  : '<i class="fa-solid fa-headphones"></i>';   // playing
 	  
 // Try to autoplay (some browsers block autoplay with sound)
 window.addEventListener('load', () => {
   music.play().catch(() => {
     // if blocked, show play icon
-    musicBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    musicBtn.innerHTML = '<i class="fa-solid fa-minus"></i>';
   });
 });
 
@@ -160,10 +160,10 @@ window.addEventListener('load', () => {
 musicBtn.addEventListener('click', () => {
   if (music.paused) {
     music.play();
-    musicBtn.innerHTML = '<i class="fas fa-wave-square"></i>';  // pause icon
+    musicBtn.innerHTML = '<i class="fa-solid fa-headphones"></i>';  // pause icon
   } else {
     music.pause();
-    musicBtn.innerHTML = '<i class="fas fa-minus"></i>';   // play icon
+    musicBtn.innerHTML = '<i class="fa-solid fa-headphones-simple"></i>';   // play icon
   }
 });
 
@@ -171,9 +171,10 @@ musicBtn.addEventListener('click', () => {
 muteBtn.addEventListener('click', () => {
   music.muted = !music.muted;
   muteBtn.innerHTML = music.muted
-	? '<i class="fas fa-signal-slash"></i>'  // muted
-    : '<i class="fas fa-signal"></i>'; // unmuted
+	? '<i class="fa-solid fa-lock"></i>'  // muted
+    : '<i class="fa-solid fa-lock-open"></i>'; // unmuted
 
+  musicBtn.style.opacity = music.muted ? "0.4" : "1";
 });
   </script>
 	</body>
