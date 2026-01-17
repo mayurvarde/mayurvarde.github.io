@@ -479,12 +479,15 @@ body {
 }
 
 #theme-toggle:hover {
-  transform: rotate(20deg);
-  transition: transform 0.3s ease;
+  transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
+  box-shadow: 0 0 15px rgba(56,189,248,0.6);
 }
 
 #theme-toggle:hover i {
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Extra clarity in dark mode */
@@ -517,13 +520,16 @@ body {
 }
 
 #music-controls button:hover {
-  transform: rotate(20deg);
-  transition: transform 0.3s ease;
+  transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
+  box-shadow: 0 0 15px rgba(56,189,248,0.6);
 }
 
 /* Icon inside button */
 #music-controls button i {
-  pointer-events: none;  /* click goes to button, not icon */
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 600px) {
