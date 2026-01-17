@@ -495,29 +495,43 @@ body {
 }
 
 #music-controls {
-  position: fixed;
-  top: 16px;
-  right: 100px; /* Adjust so it doesn’t overlap theme toggle */
-  display: flex;
-  gap: 8px;
-  z-index: 9999;
+  position: fixed;        /* fixed to viewport */
+  bottom: 16px;           /* distance from bottom */
+  right: 16px;            /* distance from right */
+  display: flex;          /* buttons side by side */
+  gap: 10px;              /* space between buttons */
+  z-index: 9999;          /* above other content */
 }
 
 #music-controls button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 45px;    /* button size */
+  height: 45px;
+  border-radius: 50%;    /* circular */
   border: 1px solid rgba(255,255,255,0.35);
-  background: var(--button-bg);
-  color: var(--button-text);
-  font-size: 18px;
+  background: var(--button-bg, #38bdf8);   /* match theme toggle */
+  color: var(--button-text, #111);
+  font-size: 20px;    /* icon size */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #music-controls button:hover {
-  transform: scale(1.1);
+  transform: rotate(20deg);
+  transition: transform 0.3s ease;
+}
+
+/* Icon inside button */
+#music-controls button i {
+  pointer-events: none;  /* click goes to button, not icon */
+}
+
+@media (max-width: 600px) {
+  #music-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
 }
