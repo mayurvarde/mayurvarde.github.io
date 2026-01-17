@@ -131,7 +131,7 @@ const muteBtn = document.getElementById('music-mute');
 window.addEventListener('load', () => {
   music.play().catch(() => {
     // if blocked, show play icon
-    musicBtn.textContent = '▶️';
+    musicBtn.innerHTML = '<i class="fas fa-play"></i>';
   });
 });
 
@@ -139,17 +139,19 @@ window.addEventListener('load', () => {
 musicBtn.addEventListener('click', () => {
   if (music.paused) {
     music.play();
-    musicBtn.textContent = '🔊';
+    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';  // pause icon
   } else {
     music.pause();
-    musicBtn.textContent = '⏸️';
+    musicBtn.innerHTML = '<i class="fas fa-play"></i>';   // play icon
   }
 });
 
 // Mute / Unmute toggle
 muteBtn.addEventListener('click', () => {
   music.muted = !music.muted;
-  muteBtn.textContent = music.muted ? '🔇' : '🔊';
+  muteBtn.innerHTML = music.muted
+	? '<i class="fas fa-volume-mute"></i>'  // muted
+    : '<i class="fas fa-volume-high"></i>'; // unmuted
 });
   </script>
 	</body>
