@@ -404,7 +404,7 @@ ion-icon {
 :root{
   --bg-gradient: linear-gradient(-45deg,#7f7fd5,#86a8e7,#91eae4,#7f7fd5);
   --text-color:#0f172a;
-  --button-bg:##38bdf8;
+  --button-bg:#38bdf8;
   --button-text:#111;
   --card-bg:rgba(255,255,255,0.2);
 }
@@ -468,8 +468,8 @@ body {
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.35);
 
-  background: var(--button-bg, #38bdf8);
-  color: var(--button-text, #111);
+  background: var(--button-bg);
+  color: var(--button-text);
 
   font-size: 20px;
   cursor: pointer;
@@ -508,8 +508,8 @@ body {
   height: 45px;
   border-radius: 50%;    /* circular */
   border: 1px solid rgba(255,255,255,0.35);
-  background: var(--button-bg, #38bdf8);   /* match theme toggle */
-  color: var(--button-text, #111);
+  background: var(--button-bg);   /* match theme toggle */
+  color: var(--button-text);
   font-size: 20px;    /* icon size */
   cursor: pointer;
   display: flex;
