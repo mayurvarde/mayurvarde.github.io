@@ -404,16 +404,16 @@ ion-icon {
 :root{
   --bg-gradient: linear-gradient(-45deg,#7f7fd5,#86a8e7,#91eae4,#7f7fd5);
   --text-color:#0f172a;
-  --button-bg:#ffffff;
-  --button-text:#0f172a;
+  --button-bg:##38bdf8;
+  --button-text:#111;
   --card-bg:rgba(255,255,255,0.2);
 }
 
 [data-theme="dark"]{
   --bg-gradient: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#0f2027);
   --text-color:#e5e7eb;
-  --button-bg:#111827;
-  --button-text:#f9fafb;
+  --button-bg:#111;
+  --button-text:#eee;
   --card-bg:rgba(255,255,255,0.05);
 }
 
@@ -458,8 +458,8 @@ body {
   right: 16px;
   z-index: 9999;
 
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
 
   display: flex;
   align-items: center;
@@ -468,18 +468,25 @@ body {
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.35);
 
-  background: var(--button-bg);
-  color: var(--button-text);
+  background: var(--button-bg, #38bdf8);
+  color: var(--button-text, #111);
 
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+  transition: 0.3s ease;
 }
 
 #theme-toggle:hover {
   transform: scale(1.1);
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(56,189,248,0.7);
+}
+
+#theme-toggle:hover i {
+  transform: rotate(20deg);
+  transition: transform 0.3s ease;
 }
 
 /* Extra clarity in dark mode */
@@ -488,29 +495,43 @@ body {
 }
 
 #music-controls {
-  position: fixed;
-  top: 16px;
-  right: 100px; /* Adjust so it doesn’t overlap theme toggle */
-  display: flex;
-  gap: 8px;
-  z-index: 9999;
+  position: fixed;        /* fixed to viewport */
+  bottom: 16px;           /* distance from bottom */
+  right: 16px;            /* distance from right */
+  display: flex;          /* buttons side by side */
+  gap: 10px;              /* space between buttons */
+  z-index: 9999;          /* above other content */
 }
 
 #music-controls button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 45px;    /* button size */
+  height: 45px;
+  border-radius: 50%;    /* circular */
   border: 1px solid rgba(255,255,255,0.35);
-  background: var(--button-bg);
-  color: var(--button-text);
-  font-size: 18px;
+  background: var(--button-bg, #38bdf8);   /* match theme toggle */
+  color: var(--button-text, #111);
+  font-size: 20px;    /* icon size */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #music-controls button:hover {
-  transform: scale(1.1);
+  transform: rotate(20deg);
+  transition: transform 0.3s ease;
+}
+
+/* Icon inside button */
+#music-controls button i {
+  pointer-events: none;  /* click goes to button, not icon */
+}
+
+@media (max-width: 600px) {
+  #music-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
 }
