@@ -238,6 +238,10 @@ ion-icon {
   animation-delay: 2.1s;
 }
 
+.tile:nth-child(7) {
+  animation-delay: 2.25s;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
