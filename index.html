@@ -5,6 +5,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 		<!-- include compass css translation -->
 		<link href="stylesheets/style.css" type="text/css" rel="stylesheet" >
+		<!-- Font Awesome for icons -->
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		<!-- fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Google+Sans" rel="stylesheet">
 		<!-- import icons -->
@@ -22,11 +24,11 @@
 		</audio>
 
 		<div id="music-controls">
-		  <button id="music-toggle" aria-label="Play/Pause music">🔊</button>
-		  <button id="music-mute" aria-label="Mute/Unmute music">🔇</button>
+		  <button id="music-toggle"><i class="fas fa-play"></i></button>
+		  <button id="music-mute"><i class="fas fa-volume-high"></i></button>
 		</div>
 
-		<button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+		<button id="theme-toggle"><i class="fas fa-moon"></i></button>
 		<div class="outer">
 			<div class="inner">
 					<section class = "gap loadanimation">
@@ -71,8 +73,12 @@
 
   function setTheme(theme) {
     root.setAttribute('data-theme', theme);
-    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-  }
+    // Use Font Awesome icons
+	  toggleBtn.innerHTML =
+	    theme === 'dark'
+	      ? '<i class="fas fa-sun"></i>'   // Dark → Light icon
+	      : '<i class="fas fa-moon"></i>'; // Light → Dark icon
+   }
 
   // Initial theme
   if (savedTheme) {
