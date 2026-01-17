@@ -139,6 +139,15 @@ const music = document.getElementById('bg-music');
 const musicBtn = document.getElementById('music-toggle');
 const muteBtn = document.getElementById('music-mute');
 
+// Initialize icons based on current state
+muteBtn.innerHTML = music.muted
+  ? '<i class="fas fa-signal-slash"></i>' // muted
+  : '<i class="fas fa-signal"></i>';       // unmuted
+
+musicBtn.innerHTML = music.paused
+  ? '<i class="fas fa-minus"></i>'         // paused
+  : '<i class="fas fa-wave-square"></i>';   // playing
+	  
 // Try to autoplay (some browsers block autoplay with sound)
 window.addEventListener('load', () => {
   music.play().catch(() => {
@@ -165,7 +174,6 @@ muteBtn.addEventListener('click', () => {
 	? '<i class="fas fa-signal-slash"></i>'  // muted
     : '<i class="fas fa-signal"></i>'; // unmuted
 
-  musicBtn.style.opacity = music.muted ? "0.4" : "1";
 });
   </script>
 	</body>
