@@ -155,19 +155,6 @@ ion-icon {
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-/* Make avatar bigger on mobile */
-@media (max-width: 768px) {
-  .avatar-container {
-    width: 260px;
-    height: 260px;
-    margin-bottom: 28px;
-  }
-
-  .avatar-container:hover {
-    transform: scale(1.05);
-  }
-}
-
 /* Avatar Image */
 .avatar-container .avatar {
   width: 100%;
@@ -188,12 +175,33 @@ ion-icon {
 }
 
 /* Responsive avatar */
-@media(max-width:600px){
+@media (max-width: 768px) {
   .avatar-container {
-    width: 100px;
-    height: 100px;
+    width: 180px;        /* Prominent size for mobile */
+    height: 180px;
+    margin: 0 auto 20px auto; /* "0 auto" centers it horizontally */
+    border-radius: 50%;
+    overflow: hidden;    /* Keeps the image inside the circle */
+    display: block;
+    border: 3px solid var(--accent-color); /* Adds a subtle professional frame */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Adds depth */
+    transition: transform 0.3s ease;
+  }
+
+  /* Crucial: This makes the image fill the 260px box */
+  .avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* Prevents the photo from stretching */
+  }
+
+  /* On mobile, :hover can be sticky; :active works better for tap feedback */
+  .avatar-container:active {
+    transform: scale(0.98);
   }
 }
+
+
 
 .loadanimation {
   animation: 1s ease-in-out both fadeInRight;
