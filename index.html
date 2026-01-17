@@ -15,7 +15,7 @@
 	</head>
 
 	<body>
-		<button id="theme-toggle">🌙 Dark Mode</button>
+		<button id="theme-toggle" aria-label="Toggle theme">🌙</button>
 		<div class="outer">
 			<div class="inner">
 					<section class = "gap loadanimation">
@@ -48,33 +48,36 @@
 				</ul>
 			</footer>
 		</div>
+
+  // Dark toggle button
   <script>
   const toggleBtn = document.getElementById('theme-toggle');
   const root = document.documentElement;
 
-  // Detect saved theme or system preference
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  if (savedTheme) {
-    root.setAttribute('data-theme', savedTheme);
-    toggleBtn.textContent =
-      savedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
-  } else if (systemPrefersDark) {
-    root.setAttribute('data-theme', 'dark');
-    toggleBtn.textContent = '☀️ Light Mode';
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
   }
 
-  // Toggle on button click
+  // Initial theme
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (systemPrefersDark) {
+    setTheme('dark');
+  } else {
+    setTheme('light');
+  }
+
+  // Toggle on click
   toggleBtn.addEventListener('click', () => {
-    const isDark = root.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
+    const newTheme =
+      root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
 
-    root.setAttribute('data-theme', newTheme);
+    setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-
-    toggleBtn.textContent =
-      newTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
   });
   </script>
 	</body>
