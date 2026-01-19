@@ -531,7 +531,6 @@ ion-icon {
   color: #1a1a1a !important;
 }
 
-/* Toggle button */
 #theme-toggle {
   position: fixed;
   top: 16px;
@@ -546,53 +545,50 @@ ion-icon {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid rgba(106, 142, 127, 0.3);
+  border: 1px solid rgba(180, 255, 230, 0.35);
 
-  background: var(--button-bg);
-  color: var(--button-text);
+  background: rgba(120, 180, 160, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
+  color: #eafaf5;
   font-size: 20px;
   cursor: pointer;
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  transition: 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #theme-toggle:hover {
-  transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
+  transform: scale(1.08);
   box-shadow: 0 0 15px var(--accent-color);
 }
 
-#theme-toggle:hover i {
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Extra clarity in dark mode - using Stone off-white */
 [data-theme="dark"] #theme-toggle {
-  border-color: rgba(226, 232, 226, 0.4); /* Stone-white border */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Deeper shadow for better depth */
+  border-color: rgba(226, 232, 226, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 #music-controls {
   position: fixed;        /* fixed to viewport */
-  bottom: 16px;           /* distance from bottom */
+  bottom: 90px;           /* distance from bottom */
   right: 16px;            /* distance from right */
   display: flex;          /* buttons side by side */
-  gap: 10px;              /* space between buttons */
+  flex-direction: column;
+  gap: 12px;              /* space between buttons */
   z-index: 9999;          /* above other content */
 }
 
 #music-controls button {
-  width: 45px;    /* button size */
-  height: 45px;
+  width: 52px;    /* button size */
+  height: 52px;
   border-radius: 50%;    /* circular */
-  border: 1px solid rgba(106, 142, 127, 0.3);
-  background: var(--button-bg);   /* match theme toggle */
-  color: var(--button-text);
-  font-size: 20px;    /* icon size */
+  border: 1px solid rgba(180, 255, 230, 0.35);
+  background: rgba(120, 180, 160, 0.18);  /* soft green glass */
+  color: #eafaf5;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 22px;    /* icon size */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -601,8 +597,8 @@ ion-icon {
 }
 
 #music-controls button:hover {
-  transform: rotate(20deg) scale(1.1);  /* optional scale for effect */
-  box-shadow: 0 0 15px var(--accent-color);
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
 }
 
 /* Icon inside button */
@@ -615,7 +611,7 @@ ion-icon {
 
 /* Specific Dark Mode adjustment for clarity */
 [data-theme="dark"] #music-controls button {
-  border-color: rgba(226, 232, 226, 0.4); /* Stone off-white border */
+  border-color: rgba(200, 255, 240, 0.4); /* Stone off-white border */
 }
 
 @media (max-width: 600px) {
@@ -623,5 +619,39 @@ ion-icon {
     width: 50px;
     height: 50px;
     font-size: 22px;
+  }
+}
+
+.glass-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(120, 180, 160, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(180, 255, 230, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+
+  color: #eafaf5;
+  font-size: 1.2rem;
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.glass-btn:hover {
+  transform: scale(1.08);
+  background: rgba(120, 180, 160, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-btn {
+    transition: none;
   }
 }
