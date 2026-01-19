@@ -142,8 +142,19 @@ img {
   height: auto;
 }
 
-ion-icon {
+/* ion-icon {
   font-size: 25px;
+} */
+
+.tile a i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  font-size: 25px;
+  line-height: 1;
 }
 
 .gap {
@@ -271,6 +282,14 @@ ion-icon {
 
 .tile {
   animation: .4s ease-in-out both fade-in;
+  transition: background 0.2s ease, transform 0.2s ease;
+  will-change: transform, background;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    animation: none;
+  }
 }
 
 .tile:nth-child(1) {
@@ -308,6 +327,11 @@ ion-icon {
   100% {
     opacity: 1;
   }
+}
+
+.tile:hover {
+  border-radius: 12px;
+  transition: background 0.2s ease;
 }
 
 .social li {
@@ -351,75 +375,66 @@ ion-icon {
 }
 
 .icon-resume {
-  color: #e95950;
+  color: #f87171; /* soft red */
 }
-
 .icon-resume:hover {
-  background: #e95950;
+  background: rgba(248, 113, 113, 0.2);
 }
 
 .icon-email {
-  color: #004f9f;
+  color: #60a5fa; /* soft blue */
 }
-
 .icon-email:hover {
-  background: #004f9f;
+  background: rgba(96, 165, 250, 0.2);
 }
 
 .icon-twitter {
-  color: #1DA1F2
+  color: #eafaf5; /* neutral, modern X */
 }
-
 .icon-twitter:hover {
-  background: #1DA1F2
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .icon-github {
-  color: #333;
+  color: #e5e7eb; /* light neutral */
 }
-
 .icon-github:hover {
-  background: #333;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .icon-linkedin {
-  color: #0077b5;
+  color: #38bdf8; /* softened LinkedIn blue */
 }
-
 .icon-linkedin:hover {
-  background: #0077b5;
+  background: rgba(56, 189, 248, 0.22);
 }
 
 .icon-instagram {
-  color: #cd486b;
+  color: #f472b6; /* soft pink-magenta */
 }
-
 .icon-instagram:hover {
-  background: #cd486b;
+  background: rgba(244, 114, 182, 0.22);
 }
 
 .icon-telegram {
-  color: #0088cc
+  color: #7dd3fc; /* light sky blue */
 }
-
 .icon-telegram:hover {
-  background: #0088cc
+  background: rgba(125, 211, 252, 0.22);
 }
 
 .icon-paypal {
-  color: #222d65
+  color: #93c5fd; /* muted PayPal blue */
 }
-
 .icon-paypal:hover {
-  background: #222d65
+  background: rgba(147, 197, 253, 0.22);
 }
 
 .icon-transcript {
-  color: #ff7700;
+  color: #fbbf24; /* warm amber */
 }
-
 .icon-transcript:hover {
-  background: #ff7700;
+  background: rgba(251, 191, 36, 0.22);
 }
 
 #spin {
@@ -659,4 +674,10 @@ ion-icon {
   .glass-btn {
     transition: none;
   }
+}
+
+.fa-brands,
+.fa-solid {
+  font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free" !important;
+  font-weight: 400;
 }
