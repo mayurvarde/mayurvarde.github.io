@@ -18,6 +18,20 @@
   --card-bg: rgba(0, 0, 0, 0.4);
 }
 
+#flow-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+@media (min-width: 768px) {
+  #flow-bg {
+    opacity: 0.18;
+  }
+}
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u,
@@ -85,16 +99,28 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: 'Google Sans', sans-serif;
 } */
 
-body{
-  font-family:'Inter',sans-serif;
-  margin:0;
-  color:var(--text-color);
-  background-image:var(--bg-gradient);
-  background-size:400% 400%;
-  animation: gradientBG 11s ease infinite;
-  text-align:center;
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  color: var(--text-color);
+  text-align: center;
+
+  /* Background stays as color + identity */
+  background-image: var(--bg-gradient);
+  background-size: 400% 400%;
+  background-attachment: fixed;
+
+  /* Slower = calmer with flow field */
+  animation: gradientBG 20s ease infinite;
+
   transition: background 0.4s, color 0.4s;
   min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
 }
 
 /* Improves text rendering on modern screens */

@@ -177,3 +177,77 @@ muteBtn.addEventListener('click', () => {
 
   musicBtn.style.opacity = music.muted ? "0.4" : "1";
 });
+
+const canvas = document.getElementById("flow-bg");
+const ctx = canvas.getContext("2d");
+
+let w, h;
+let mouse = { x: -1000, y: -1000 };
+let t = 0;
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// Cursor / touch tracking
+window.addEventListener("mousemove", e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("touchmove", e => {
+  mouse.x = e.touches[0].clientX;
+  mouse.y = e.touches[0].clientY;
+}, { passive: true });
+
+// Respect reduced motion (DO NOT hide canvas)
+const prefersReducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Mobile performance tuning
+const isMobile = window.innerWidth < 768;
+
+// DRAW LOOP — ALWAYS RUNS
+function draw() {
+  console.log("drawing", t);
+  if (prefersReducedMotion) return;
+
+  ctx.clearRect(0, 0, w, h);
+  const imageData = ctx.createImageData(w, h);
+  const data = imageData.data;
+
+  const step = isMobile ? 6 : 3;
+
+  for (let y = 0; y < h; y += step) {
+    for (let x = 0; x < w; x += step) {
+
+      const dx = x - mouse.x;
+      const dy = y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      const angle =
+        Math.sin(x * 0.002 + t) +
+        Math.cos(y * 0.002 + t) +
+        Math.sin(dist * 0.01);
+
+      const value = 120 + Math.sin(angle) * 40;
+
+      const i = (y * w + x) * 4;
+      data[i] = value;
+      data[i + 1] = value + 10;
+      data[i + 2] = value + 5;
+      data[i + 3] = 20;
+    }
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  t += isMobile ? 0.0015 : 0.003;
+
+  requestAnimationFrame(draw);
+}
+
+// START IMMEDIATELY
+draw();
