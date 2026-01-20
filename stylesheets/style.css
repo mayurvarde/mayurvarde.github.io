@@ -123,13 +123,40 @@ h1 {
   font-size: 2.25em;
   padding: 0 1em;
   font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.03em;
   color: var(--accent-color); /* Shirt color for the main title */
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  margin: 10px auto 0;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+h1, p {
+  cursor: default;
+}
+
+p {
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.1rem;
+  }
 }
 
 a {
   text-decoration: none;
   color: var(--accent-color); /* Shirt color for links */
   transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 a:hover {
@@ -367,11 +394,13 @@ img {
 .social li a {
   display: block;
   color: inherit;
-  padding: 1em 1em 1em;
+  padding: 1em;
   width: 6em;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.25;
+  text-align: center;
 }
 
 .icon-resume {
@@ -439,6 +468,8 @@ img {
 
 #spin {
   color: red;
+  display: inline-block;
+  text-align: left;
 }
 
 #spin:after {
@@ -490,6 +521,11 @@ img {
   bottom: 0px;
   width: 100%;
   padding: 6px 0;
+  letter-spacing: 0.06em;
+}
+
+#footer i {
+  vertical-align: middle;
 }
 
 #footer .fa-heart {
@@ -680,4 +716,25 @@ img {
 .fa-solid {
   font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free" !important;
   font-weight: 400;
+}
+
+#scramble-name {
+  display: inline-block;
+  cursor: default;
+  letter-spacing: 0.06em;
+}
+
+#scramble-name:hover {
+  text-decoration: underline;
+}
+
+.location {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  opacity: 0.75;
+}
+
+[data-theme="dark"] .location {
+  opacity: 0.8;
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-	<div class="bg">
+<html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 		<!-- before css load theme -->
@@ -25,40 +24,39 @@
 	</head>
 
 	<body>
+		<div class="bg">
 		<!-- Background Music -->
-		<audio id="bg-music" loop autoplay>
+		<audio id="bg-music" loop>
 		  <source src="resources/music.mp3" type="audio/mpeg">
 		  Your browser does not support the audio element.
 		</audio>
 
 		<div id="music-controls">
-		  <button id="music-toggle" class="glass-btn"><i class="fa-solid fa-play-circle"></i></button>
-		  <button id="music-mute" class="glass-btn"><i class="fa-solid fa-volume-mute"></i></button>
+		  <button id="music-toggle" class="glass-btn" aria-label="Play or pause background music"><i class="fa-solid fa-play-circle"></i></button>
+		  <button id="music-mute" class="glass-btn" aria-label="Mute or unmute background music"><i class="fa-solid fa-volume-mute"></i></button>
 		</div>
 
-		<button id="theme-toggle" class="glass-btn"><i class="fa-solid fa-circle-half-stroke"></i></button>
+		<button id="theme-toggle" class="glass-btn" aria-label="Toggle theme"><i class="fa-solid fa-circle-half-stroke"></i></button>
 		<div class="outer">
 			<div class="inner">
 					<section class = "gap loadanimation">
 						<div class="avatar-container">
 						<img src="resources/avatar.png" class="avatar">
 						</div>
-						<h1 class="padDown">Mayur Varde</h1>
+						<h1 class="padDown">
+						  <span id="scramble-name" data-text="Mayur Varde">Mayur Varde</span>
+						</h1>
 						<p>I am a <span id="spin"></span></p>
-						<h2></h2>
-						<h3>
-							<br>
-							Gujarat, India
-						</h3>
+						<p class="location">Gujarat, India</p>
 					</section>
 
 					<ul class="gap social">
-                                                <li class="icon-resume tile"><a href= "resources/resume.pdf"><i class="fa-regular fa-file"></i><br><br>Resume</a></li>
-						<li class="icon-instagram tile"><a href= "https://instagram.com/may.u.r"><i class="fa-brands fa-instagram"></i><br><br>Instagram</a></li>
-						<li class="icon-twitter tile"><a href="https://x.com/myurvrde"><i class="fa-brands fa-x-twitter"></i><br><br>X</a></li>
-						<li class="icon-github tile"><a href="https://github.com/marshmello61"><i class="fa-brands fa-github"></i><br><br>GitHub</a></li>
-						<li class="icon-telegram tile"><a href="https://t.me/marshmello_61"><i class="fa-regular fa-paper-plane"></i><br><br>Telegram</a></li>
-						<li class="icon-email tile"><a href="mailto: ultramayur123@gmail.com"><i class="fa-regular fa-envelope"></i><br><br>Email</a></li>
+                                                <li class="icon-resume tile"><a href= "resources/resume.pdf"><i class="fa-regular fa-file"></i><br><br>Dossier</a></li>
+						<li class="icon-instagram tile"><a href= "https://instagram.com/may.u.r"><i class="fa-brands fa-instagram"></i><br><br>Visual log</a></li>
+						<li class="icon-twitter tile"><a href="https://x.com/myurvrde"><i class="fa-brands fa-x-twitter"></i><br><br>Noise</a></li>
+						<li class="icon-github tile"><a href="https://github.com/marshmello61"><i class="fa-brands fa-github"></i><br><br>Code</a></li>
+						<li class="icon-telegram tile"><a href="https://t.me/marshmello_61"><i class="fa-regular fa-paper-plane"></i><br><br>Direct</a></li>
+						<li class="icon-email tile"><a href="mailto: ultramayur123@gmail.com"><i class="fa-regular fa-envelope"></i><br><br>Reach</a></li>
 						<!-- <li class="icon-paypal tile"><a href="https://paypal.me/marshmello61"><i class="fa-regular fa-credit-card"></i><br><br>Paypal</a></li> -->
 					</ul>
 				</div>
@@ -72,114 +70,6 @@
 				</ul>
 			</footer>
 		</div>
-
-  <script>
-  // Fetch current year
-  document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-  const toggleBtn = document.getElementById('theme-toggle');
-  const root = document.documentElement;
-
-  const savedTheme = localStorage.getItem('theme');
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  function setTheme(theme) {
-    root.setAttribute('data-theme', theme);
-    // Use Font Awesome icons
-	  toggleBtn.innerHTML =
-	    theme === 'dark'
-	      ? '<i class="fa-solid fa-circle"></i>'   // dark active, show light toggle
-	      : '<i class="fa-solid fa-circle-half-stroke"></i>'; // light active, show dark toggle
-   }
-
-  // Initial theme
-  if (savedTheme) {
-    setTheme(savedTheme);
-  } else if (systemPrefersDark) {
-    setTheme('dark');
-  } else {
-    setTheme('light');
-  }
-
-  // Toggle on click
-  toggleBtn.addEventListener('click', () => {
-    const current =
-      root.getAttribute('data-theme');
-	  const next = current === 'dark' ? 'light' : 'dark';
-	  setTheme(next)
-    localStorage.setItem('theme', next);
-  });
-
-  // Scroll animations
-    const faders = document.querySelectorAll('.fade-in');
-    const appearOptions = {threshold: 0.1, rootMargin: "0px 0px -50px 0px"};
-    const appearOnScroll = new IntersectionObserver(function(entries, observer){
-      entries.forEach(entry=>{
-        if(!entry.isIntersecting) return;
-        entry.target.classList.add('appear');
-        observer.unobserve(entry.target);
-      });
-    }, appearOptions);
-
-    faders.forEach(fader => {appearOnScroll.observe(fader);});
-
-    // Animate skill bars
-    const skillBars = document.querySelectorAll('.progress-bar div');
-    window.addEventListener('scroll', ()=>{
-      skillBars.forEach(bar=>{
-        const barTop = bar.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        if(barTop < windowHeight-50){
-          bar.style.width = bar.getAttribute('data-width');
-        }
-      });
-    });
-
-const music = document.getElementById('bg-music');
-const musicBtn = document.getElementById('music-toggle');
-const muteBtn = document.getElementById('music-mute');
-
-/* ===== INITIAL ICON STATE ===== */
-
-// Mute / Unmute icon
-muteBtn.innerHTML = music.muted
-  ? '<i class="fa-solid fa-volume-mute"></i>' // muted
-  : '<i class="fa-solid fa-volume-up"></i>';  // unmuted
-
-// Play / Pause icon
-musicBtn.innerHTML = music.paused
-  ? '<i class="fa-solid fa-play-circle"></i>'  // paused
-  : '<i class="fa-solid fa-pause-circle"></i>'; // playing
-
-/* ===== AUTOPLAY ===== */
-window.addEventListener('load', () => {
-  music.play().catch(() => {
-    musicBtn.innerHTML = '<i class="fa-solid fa-play-circle"></i>';
-  });
-});
-
-/* ===== PLAY / PAUSE ===== */
-musicBtn.addEventListener('click', () => {
-  if (music.paused) {
-    music.play();
-    musicBtn.innerHTML = '<i class="fa-solid fa-pause-circle"></i>';
-  } else {
-    music.pause();
-    musicBtn.innerHTML = '<i class="fa-solid fa-play-circle"></i>';
-  }
-});
-
-/* ===== MUTE / UNMUTE ===== */
-muteBtn.addEventListener('click', () => {
-  music.muted = !music.muted;
-
-  muteBtn.innerHTML = music.muted
-    ? '<i class="fa-solid fa-volume-mute"></i>'
-    : '<i class="fa-solid fa-volume-up"></i>';
-
-  musicBtn.style.opacity = music.muted ? "0.4" : "1";
-});
-  </script>
+	<script src="scripts/main.js"></script>
 	</body>
 </html>
