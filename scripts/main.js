@@ -1,115 +1,253 @@
 "use strict";
+const nameEl = document.getElementById("scramble-name");
 
-const root = document.documentElement;
-const themeButton = document.getElementById("theme-toggle");
-const music = document.getElementById("bg-music");
-const musicButton = document.getElementById("music-toggle");
-const muteButton = document.getElementById("music-mute");
-const year = document.getElementById("year");
+if (nameEl) {
+const originalText = nameEl.dataset.text;
 
-if (year) year.textContent = new Date().getFullYear();
+const chars = "!@#$%^&*()_+-=<>?/{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-function applyTheme(theme) {
-  root.setAttribute("data-theme", theme);
-  if (themeButton) {
-    themeButton.innerHTML = theme === "dark"
-      ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
-      : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
-    themeButton.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
-  }
+let scrambleInterval = null;
+let assembling = false;
+
+/* --- Continuous scramble --- */
+function startScrambling() {
+  scrambleInterval = setInterval(() => {
+    nameEl.textContent = originalText
+      .split("")
+      .map(() => chars[Math.floor(Math.random() * chars.length)])
+      .join("");
+  }, 30);
 }
-const storedTheme = localStorage.getItem("theme");
-const initialTheme = storedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-applyTheme(initialTheme);
-themeButton?.addEventListener("click", () => {
-  const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  applyTheme(next);
-  localStorage.setItem("theme", next);
+
+/* --- Assemble into real name --- */
+function assembleText() {
+  if (assembling) return;
+  assembling = true;
+
+  clearInterval(scrambleInterval);
+  scrambleInterval = null;
+
+  let iterations = 0;
+
+  const interval = setInterval(() => {
+    nameEl.textContent = originalText
+      .split("")
+      .map((char, index) => {
+        if (index < iterations) return originalText[index];
+        return chars[Math.floor(Math.random() * chars.length)];
+      })
+      .join("");
+
+    iterations++;
+
+    if (iterations > originalText.length) {
+      clearInterval(interval);
+      nameEl.textContent = originalText;
+      nameEl.style.letterSpacing = "";
+      assembling = false;
+    }
+  }, 30);
+}
+
+/* --- Initial state: scrambling immediately --- */
+nameEl.style.letterSpacing = "0.06em";
+startScrambling();
+
+/* --- Switch to assemble when CSS animation ends --- */
+const animatedSection = document.querySelector(".loadanimation");
+
+animatedSection.addEventListener(
+  "animationend",
+  () => {
+    assembleText();
+  },
+  { once: true }
+);
+
+/* --- Optional: re-trigger on hover --- */
+nameEl.addEventListener("mouseenter", () => {
+  if (assembling || scrambleInterval) return;
+  startScrambling();
+  setTimeout(assembleText, 500);
 });
 
-const nameElement = document.getElementById("scramble-name");
-if (nameElement && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  const original = nameElement.dataset.text || nameElement.textContent;
-  const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%";
-  let timer;
-  let running = false;
-  function scramble() {
-    if (running) return;
-    running = true;
-    let frame = 0;
-    clearInterval(timer);
-    timer = setInterval(() => {
-      nameElement.textContent = original.split("").map((char, index) =>
-        index < frame / 2 ? char : characters[Math.floor(Math.random() * characters.length)]
-      ).join("");
-      frame++;
-      if (frame > original.length * 2) {
-        clearInterval(timer);
-        nameElement.textContent = original;
-        running = false;
-      }
-    }, 38);
+nameEl.addEventListener("click", () => {
+  if (assembling || scrambleInterval) return;
+  startScrambling();
+  setTimeout(assembleText, 500);
+});
+}
+
+  // Fetch current year
+  document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+  const toggleBtn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    // Use Font Awesome icons
+	  toggleBtn.innerHTML =
+	    theme === 'dark'
+	      ? '<i class="fa-solid fa-circle"></i>'   // dark active, show light toggle
+	      : '<i class="fa-solid fa-circle-half-stroke"></i>'; // light active, show dark toggle
+   }
+
+  // Initial theme
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (systemPrefersDark) {
+    setTheme('dark');
+  } else {
+    setTheme('light');
   }
-  window.addEventListener("load", () => window.setTimeout(scramble, 350), { once:true });
-  nameElement.addEventListener("mouseenter", scramble);
-  nameElement.addEventListener("focus", scramble);
-}
 
-if (music && musicButton && muteButton) {
-  const updateMusicControls = () => {
-    musicButton.innerHTML = music.paused
-      ? '<i class="fa-solid fa-play" aria-hidden="true"></i>'
-      : '<i class="fa-solid fa-pause" aria-hidden="true"></i>';
-    muteButton.innerHTML = music.muted
-      ? '<i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>'
-      : '<i class="fa-solid fa-volume-high" aria-hidden="true"></i>';
-    musicButton.setAttribute("aria-label", music.paused ? "Play background music" : "Pause background music");
-    muteButton.setAttribute("aria-label", music.muted ? "Unmute background music" : "Mute background music");
-  };
-  musicButton.addEventListener("click", async () => {
-    if (music.paused) {
-      try { await music.play(); } catch (error) { console.warn("Audio playback requires a user gesture.", error); }
-    } else music.pause();
-    updateMusicControls();
+  // Toggle on click
+  toggleBtn.addEventListener('click', () => {
+    const current =
+      root.getAttribute('data-theme');
+	  const next = current === 'dark' ? 'light' : 'dark';
+	  setTheme(next)
+    localStorage.setItem('theme', next);
   });
-  muteButton.addEventListener("click", () => { music.muted = !music.muted; updateMusicControls(); });
-  music.addEventListener("play", updateMusicControls);
-  music.addEventListener("pause", updateMusicControls);
-  updateMusicControls();
-}
 
-// Lightweight ambient canvas: draw a few soft, drifting lines rather than
-// allocating a full-screen ImageData buffer on every animation frame.
+  // Scroll animations
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {threshold: 0.1, rootMargin: "0px 0px -50px 0px"};
+    const appearOnScroll = new IntersectionObserver(function(entries, observer){
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {appearOnScroll.observe(fader);});
+
+    // Animate skill bars
+    const skillBars = document.querySelectorAll('.progress-bar div');
+    window.addEventListener('scroll', ()=>{
+      skillBars.forEach(bar=>{
+        const barTop = bar.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        if(barTop < windowHeight-50){
+          bar.style.width = bar.getAttribute('data-width');
+        }
+      });
+    });
+
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-toggle');
+const muteBtn = document.getElementById('music-mute');
+
+/* ===== INITIAL ICON STATE ===== */
+
+// Mute / Unmute icon
+muteBtn.innerHTML = music.muted
+  ? '<i class="fa-solid fa-volume-mute"></i>' // muted
+  : '<i class="fa-solid fa-volume-up"></i>';  // unmuted
+
+// Play / Pause icon
+musicBtn.innerHTML = music.paused
+  ? '<i class="fa-solid fa-play-circle"></i>'  // paused
+  : '<i class="fa-solid fa-pause-circle"></i>'; // playing
+
+/* ===== PLAY / PAUSE ===== */
+musicBtn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.innerHTML = '<i class="fa-solid fa-pause-circle"></i>';
+  } else {
+    music.pause();
+    musicBtn.innerHTML = '<i class="fa-solid fa-play-circle"></i>';
+  }
+});
+
+/* ===== MUTE / UNMUTE ===== */
+muteBtn.addEventListener('click', () => {
+  music.muted = !music.muted;
+
+  muteBtn.innerHTML = music.muted
+    ? '<i class="fa-solid fa-volume-mute"></i>'
+    : '<i class="fa-solid fa-volume-up"></i>';
+
+  musicBtn.style.opacity = music.muted ? "0.4" : "1";
+});
+
 const canvas = document.getElementById("flow-bg");
-const context = canvas?.getContext("2d", { alpha:true });
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (canvas && context && !reducedMotion) {
-  let width = 0, height = 0, frame = 0;
-  const resize = () => {
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-    width = window.innerWidth; height = window.innerHeight;
-    canvas.width = Math.round(width * ratio);
-    canvas.height = Math.round(height * ratio);
-    context.setTransform(ratio, 0, 0, ratio, 0, 0);
-  };
-  resize();
-  window.addEventListener("resize", resize, { passive:true });
-  const draw = () => {
-    context.clearRect(0, 0, width, height);
-    context.lineWidth = 1;
-    for (let i = 0; i < 5; i++) {
-      const y = height * (.22 + i * .14) + Math.sin(frame * .004 + i) * 18;
-      context.beginPath();
-      context.strokeStyle = root.getAttribute("data-theme") === "dark"
-        ? "rgba(169,197,174,.14)" : "rgba(88,119,101,.12)";
-      for (let x = 0; x <= width + 12; x += 12) {
-        const py = y + Math.sin(x * .006 + frame * .006 + i) * 13;
-        if (x === 0) context.moveTo(x, py); else context.lineTo(x, py);
-      }
-      context.stroke();
+const ctx = canvas.getContext("2d");
+
+let w, h;
+let mouse = { x: -1000, y: -1000 };
+let t = 0;
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// Cursor / touch tracking
+window.addEventListener("mousemove", e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("touchmove", e => {
+  mouse.x = e.touches[0].clientX;
+  mouse.y = e.touches[0].clientY;
+}, { passive: true });
+
+// Respect reduced motion (DO NOT hide canvas)
+const prefersReducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Mobile performance tuning
+const isMobile = window.innerWidth < 768;
+
+// DRAW LOOP — ALWAYS RUNS
+function draw() {
+  console.log("drawing", t);
+  if (prefersReducedMotion) return;
+
+  ctx.clearRect(0, 0, w, h);
+  const imageData = ctx.createImageData(w, h);
+  const data = imageData.data;
+
+  const step = isMobile ? 6 : 3;
+
+  for (let y = 0; y < h; y += step) {
+    for (let x = 0; x < w; x += step) {
+
+      const dx = x - mouse.x;
+      const dy = y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      const angle =
+        Math.sin(x * 0.002 + t) +
+        Math.cos(y * 0.002 + t) +
+        Math.sin(dist * 0.01);
+
+      const value = 120 + Math.sin(angle) * 40;
+
+      const i = (y * w + x) * 4;
+      data[i] = value;
+      data[i + 1] = value + 10;
+      data[i + 2] = value + 5;
+      data[i + 3] = 20;
     }
-    frame++;
-    requestAnimationFrame(draw);
-  };
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  t += isMobile ? 0.0015 : 0.003;
+
   requestAnimationFrame(draw);
 }
+
+// START IMMEDIATELY
+draw();
